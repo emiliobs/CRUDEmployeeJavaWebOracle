@@ -92,15 +92,24 @@ public class PeoplesController extends HttpServlet
                 String namePeople = request.getParameter("txtName");
                 String emailPeople = request.getParameter("txtEmail");
                 String phonePeople = request.getParameter("txtPhone");
-                
+
                 People peopleEdit = new People();
                 peopleEdit.setId(idPeople);
                 peopleEdit.setName(namePeople);
                 peopleEdit.setEmail(emailPeople);
                 peopleEdit.setPhone(phonePeople);
-                
+
                 peopleDAO.edit(peopleEdit);
 
+                request.getRequestDispatcher("PeoplesController?action=List").forward(request, response);
+                break;
+            case "Delete":
+                String idDelete = request.getParameter("id");
+                peopleDAO.delete(idDelete);
+                
+                request.getRequestDispatcher("PeoplesController?action=List").forward(request, response);
+                break;
+            case "Back":
                 request.getRequestDispatcher("PeoplesController?action=List").forward(request, response);
                 break;
             default:

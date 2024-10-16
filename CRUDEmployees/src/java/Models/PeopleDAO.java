@@ -38,7 +38,7 @@ public class PeopleDAO
 
             connection = connectioDB.getConnection();
 
-            String sql = "SELECT * FROM PEOPLE order by id";
+            String sql = "SELECT * FROM PEOPLE order by name";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -172,5 +172,21 @@ public class PeopleDAO
 
         }
 
+    }
+
+    public void delete(String id)
+    {
+        String sql = "Delete From people Where id=" + id;
+        
+        try
+        {
+            connection = connectioDB.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error Delete Dao: " + e.getMessage());
+        }
     }
 }
