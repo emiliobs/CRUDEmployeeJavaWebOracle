@@ -42,9 +42,10 @@
                             <td>${people.getEmail()}</td>
                             <td>${people.getPhone()}</td>
                             <td>
-                                <form>
-                                    <input type="submit" value="Edit">
-                                    <input type="submit" value="Delete">
+                                <form action="PeoplesController" method="POST">
+                                    <input type="hidden" name="id" value="${people.getId()}">
+                                    <input type="submit" name="action" value="Edit">
+                                    <input type="submit" name="action" value="Delete">
                                 </form>
                             </td>
                         </tr>

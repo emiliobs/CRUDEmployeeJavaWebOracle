@@ -15,7 +15,7 @@
 
     <center>
         <div>
-            <h1>New Employee</h1>
+            <h1>New Employee.</h1>
         </div>
         <hr/>
         <div>
