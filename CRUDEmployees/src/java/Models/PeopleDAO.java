@@ -16,11 +16,13 @@ import java.util.ArrayList;
 public class PeopleDAO
 {
 
-    ConnectioDB c = new ConnectioDB();
+   
+    ConnectioDB connectioDB = new ConnectioDB();
 
-//    PreparedStatement preparedStatement;
-//    ResultSet resultSet;
-//    Connection con;
+    PreparedStatement preparedStatement;
+    ResultSet resultSet;
+    Connection connection;
+
     public List<People> Lists()
     {
         ArrayList<People> list = new ArrayList<>();
@@ -28,10 +30,10 @@ public class PeopleDAO
         try
         {
 
-            Connection con = c.getConnection();
+            connection = connectioDB.getConnection();
 
-            String sql = "SELECT * FROM people order by id";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            String sql = "SELECT * FROM PEOPLE order by id";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next())
@@ -52,6 +54,43 @@ public class PeopleDAO
         }
 
         return list;
+    }
+
+    public int add(People people)
+    {
+        int result = 0;
+
+        String sql = "INSERT INTO people (id,name,email,phone ) VALUES (?,?,?,?)";
+        
+
+        try
+        {
+            connection = connectioDB.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, people.getId());
+            preparedStatement.setString(2, people.getName());
+            preparedStatement.setString(3, people.getEmail());
+            preparedStatement.setString(4, people.getPhone());
+
+            result = preparedStatement.executeUpdate();
+            if (result == 1)
+            {
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Sorry: The  Person could not be Saved: " + e.getMessage());
+        }
+
+        return result;
+
     }
 
     public static void main(String[] args)

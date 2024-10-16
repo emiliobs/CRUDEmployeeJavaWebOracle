@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,11 +16,12 @@
     <body>
     <center>
         <div>
-            <h3>Peoples</h3>
-            <hr/>
+            <h1>Peoples List.</h1>
             <form action="PeoplesController" method="POST">
                 <input type="submit" name="action" value="List">
+                <input type="submit" name="action" value="Add">
             </form>
+            <hr/>
         </div>
         <div>
             <table border="1">

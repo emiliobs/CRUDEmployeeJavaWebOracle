@@ -17,10 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 public class PeoplesController extends HttpServlet
 {
 
- PeopleDAO peopleDAO = new PeopleDAO();
+    PeopleDAO peopleDAO = new PeopleDAO();
     People people = new People();
-    
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
@@ -40,7 +39,6 @@ public class PeoplesController extends HttpServlet
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
@@ -52,20 +50,41 @@ public class PeoplesController extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-         String action = request.getParameter("action");
+        String action = request.getParameter("action");
         switch (action)
         {
             case "List":
-                  List<People> peoples = peopleDAO.Lists();
+                List<People> peoples = peopleDAO.Lists();
                 request.setAttribute("peoples", peoples);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+                break;
+            case "Add":
+                request.getRequestDispatcher("add.jsp").forward(request, response);
+                break;
+            case "Save":
+                
+                String id = request.getParameter("txtId");
+                String name = request.getParameter("txtName");
+                String email = request.getParameter("txtEmail");
+                String phone = request.getParameter("txtPhone");
+                
+                people.setId(id);
+                people.setName(name);
+                people.setEmail(email);
+                people.setPhone(phone);
+                
+               int  result = peopleDAO.add(people);
+               
+                System.out.println("Result: " + result);
+                
+                request.getRequestDispatcher("PeoplesController?action=List").forward(request, response);
+
                 break;
             default:
                 throw new AssertionError();
         }
     }
 
- 
     @Override
     public String getServletInfo()
     {
